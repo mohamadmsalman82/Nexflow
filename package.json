@@ -1,0 +1,37 @@
+{
+    "name": "cf_ai_nexflow",
+    "version": "0.1.0",
+    "description": "NexFlow AI — Natural-language workflow automation on Cloudflare Workers, Durable Objects, and Workflows.",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "wrangler dev",
+        "deploy": "wrangler deploy",
+        "typecheck": "tsc --noEmit",
+        "build:frontend": "esbuild frontend/app.tsx --bundle --jsx=automatic --jsx-import-source=react --format=esm --outfile=frontend/dist/app.js --sourcemap && npm run embed-assets",
+        "embed-assets": "node scripts/embed-assets.js",
+        "build": "npm run build:frontend",
+        "cron:test": "tsx scripts/simulate-cron.ts",
+        "test:templates": "tsx tests/template.test.ts"
+    },
+    "dependencies": {
+        "cron-parser": "^5.4.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@cloudflare/workers-types": "^4.20241112.0",
+        "@types/react": "^18.3.11",
+        "@types/react-dom": "^18.3.1",
+        "esbuild": "^0.27.0",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.7.1",
+        "typescript": "^5.6.3",
+        "wrangler": "^4.51.0"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "packageManager": "npm@10.9.0"
+}

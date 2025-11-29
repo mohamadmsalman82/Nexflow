@@ -1,0 +1,30 @@
+{
+  "name": "btc-price-alert",
+  "schedule": "* * * * *",
+  "enabled": true,
+  "steps": [
+    {
+      "type": "fetch",
+      "id": "btcPrice",
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+      "method": "GET"
+    },
+    {
+      "type": "condition",
+      "input": "btcPrice.status",
+      "operator": "=",
+      "value": 200
+    },
+    {
+      "type": "log",
+      "message": "Fetched BTC price: ${btcPrice.body.price} USD"
+    },
+    {
+      "type": "notify",
+      "method": "slack",
+      "url": "https://hooks.slack.com/services/XXX/YYY/ZZZ",
+      "message": "Current BTC price: ${btcPrice.body.price} USD"
+    }
+  ]
+}
+

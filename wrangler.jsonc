@@ -1,0 +1,44 @@
+{
+  "name": "nexflow",
+  "main": "src/server.ts",
+  "compatibility_date": "2025-02-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Durable Object binding
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "NEXFLOW_MANAGER",
+        "class_name": "NexFlowManager"
+      }
+    ]
+  },
+
+  // 🔄 Required migration for free-tier Durable Objects
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["NexFlowManager"]  // ⬅️ CHANGED from new_classes
+    }
+  ],
+
+  // (Optional but likely already needed) Cron triggers
+  // This wakes the worker every minute so your `scheduled` handler can run flows.
+  "triggers": {
+    "crons": ["*/1 * * * *"]
+  },
+
+  // Workflows binding
+  "workflows": [
+    {
+      "name": "NexFlowEngine",
+      "binding": "NEXFLOW_ENGINE",
+      "class_name": "NexFlowEngine"
+    }
+  ],
+
+  // Workers AI binding
+  "ai": {
+    "binding": "AI"
+  }
+}
